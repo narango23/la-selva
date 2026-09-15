@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #EFE4D6; }
+  html { overflow-y: scroll; scrollbar-gutter: stable; }
+  body { -webkit-font-smoothing: antialiased; }
+  a { color: #8A2B2E; text-decoration: none; }
+  a:hover { color: #2A2118; }
+</style>
+</helmet>
+<div style="position: relative; min-height: 100vh; background: #EFE4D6; color: #2A2118; font-family: 'Cormorant Garamond', Georgia, serif; overflow-x: hidden;">
+  <div style="position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0;">
+    <img src="uploads/HTC_Heritage%20Library_Nature%20by%20Merian%2003Element%201.png" alt="" style="position: absolute; top: {{ topY }}vh; left: {{ topX }}vw; width: {{ topW }}vw; max-width: {{ topMax }}px; opacity: {{ topOpacity }}; mix-blend-mode: multiply; transform: rotate({{ topRot }}deg);">
+    <img src="uploads/HTC_Heritage%20Library_Nature%20by%20Merian%2003Element%202.png" alt="" style="position: absolute; bottom: {{ botY }}vh; right: {{ botX }}vw; width: {{ botW }}vw; max-width: {{ botMax }}px; opacity: {{ botOpacity }}; mix-blend-mode: multiply; transform: rotate({{ botRot }}deg);">
+    <div style="position: absolute; inset: 0; background: radial-gradient(ellipse {{ veilW }}% {{ veilH }}% at 50% {{ veilY }}%, rgba(239,228,214,{{ veilCenter }}) 0%, rgba(239,228,214,{{ veilCenter }}) {{ veilCore }}%, rgba(239,228,214,{{ veilEdge }}) 100%);"></div>
+  </div>
+
+  <sc-if value="{{ locked }}" hint-placeholder-val="{{ true }}">
+    <div style="position: relative; z-index: 1; box-sizing: border-box; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 72px 24px;">
+      <div style="width: 100%; max-width: 420px; display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center;">
+        <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: #8A2B2E;">
+          <span style="display: block; width: 34px; height: 1px; background: #8A2B2E; opacity: 0.5;"></span>
+          <span>Estación 03</span>
+          <span style="display: block; width: 34px; height: 1px; background: #8A2B2E; opacity: 0.5;"></span>
+        </div>
+        <h2 style="margin: 0; font-size: clamp(32px, 5.5vw, 52px); font-weight: 300; line-height: 1.05; letter-spacing: -0.02em; text-wrap: balance;">Escribe la <em style="font-weight: 300;">clave</em></h2>
+        <p style="margin: 0; max-width: 30ch; font-size: 17px; line-height: 1.6; color: #3F3325; text-wrap: pretty;">La palabra que encontraste nos adentra en la selva.</p>
+        <input value="{{ code }}" onChange="{{ onCode }}" onKeyDown="{{ onKeyDown }}" placeholder="CLAVE" autoCapitalize="characters" autoComplete="off" spellCheck="false" style="width: 100%; box-sizing: border-box; padding: 16px 18px; border: 1px solid rgba(138,43,46,0.45); border-radius: 4px; background: rgba(239,228,214,0.75); color: #2A2118; font-family: 'IBM Plex Mono', monospace; font-size: 16px; letter-spacing: 0.28em; text-transform: uppercase; text-align: center; outline: none;" style-focus="border-color: #8A2B2E;">
+        <button type="button" onClick="{{ submit }}" style="display: inline-flex; align-items: center; gap: 12px; padding: 14px 26px; border: 1px solid #8A2B2E; border-radius: 999px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #8A2B2E; background: rgba(239,228,214,0.5); cursor: pointer; transition: background 180ms ease, color 180ms ease;" style-hover="background: #8A2B2E; color: #EFE4D6;">
+          <span>Desbloquear</span>
+          <span style="font-family: 'Cormorant Garamond', serif; font-size: 15px;">→</span>
+        </button>
+        <div style="min-height: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #8A2B2E; opacity: {{ errorOpacity }};">Clave incorrecta</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ open }}">
+    <div style="position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; padding: 0 24px;">
+      <div style="width: 100%; max-width: 720px; display: flex; flex-direction: column; align-items: center; gap: 0;">
+
+        <section style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 28px; text-align: center; padding: 96px 0;">
+          <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: #8A2B2E;">
+            <span style="display: block; width: 34px; height: 1px; background: #8A2B2E; opacity: 0.5;"></span>
+            <span>Estación 03</span>
+            <span style="display: block; width: 34px; height: 1px; background: #8A2B2E; opacity: 0.5;"></span>
+          </div>
+          <h1 style="margin: 0; font-size: clamp(44px, 9vw, 96px); font-weight: 300; line-height: 0.98; letter-spacing: -0.02em; text-wrap: balance;">El tercer<br><em style="font-weight: 300;">vuelo</em></h1>
+          <p style="margin: 0; max-width: 30ch; font-size: clamp(24px, 2.8vw, 32px); line-height: 1.45; color: #3F3325; text-wrap: pretty;">Texto de muestra. Tercera estación: acá va lo que se revela en esta parada y cómo se conecta con lo que la persona ya descubrió.</p>
+          <div style="margin-top: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #6F6150;">Desplazá para continuar</div>
+        </section>
+
+        <section style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; gap: 48px; padding: 96px 0; width: 100%;">
+          <div style="display: flex; flex-direction: column; gap: 18px; max-width: 480px; width: 100%; margin: 0 auto;">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #8A2B2E;">Principio</div>
+            <p style="margin: 0; font-size: clamp(22px, 3.4vw, 34px); line-height: 1.38; font-weight: 300; color: #2A2118; text-wrap: pretty;">Placeholder de la pista. Un acertijo breve que apunte a la cuarta estación sin nombrarla.</p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 28px; max-width: 480px; width: 100%; margin: 0 auto; border-top: 1px solid rgba(42,33,24,0.20); border-bottom: 1px solid rgba(42,33,24,0.20); padding: 28px 0;">
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: #6F6150;">Dónde</div>
+              <div style="font-size: 19px; line-height: 1.45;">Cra. 43B #12-39, El Poblado, Medellín</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: #6F6150;">Cuándo</div>
+              <div style="font-size: 19px; line-height: 1.45;">20 de septiembre a 24 de septiembre</div>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 22px; align-items: center; max-width: 480px; width: 100%; margin: 0 auto;">
+            <p style="margin: 0; text-align: center; font-size: 17px; line-height: 1.65; color: #3F3325; text-wrap: pretty;">Quedan dos. Escaneá el próximo código con la misma tarjeta para seguir abriendo la historia.</p>
+            <a href="#" style="display: inline-flex; align-items: center; gap: 12px; padding: 14px 26px; border: 1px solid #8A2B2E; border-radius: 999px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #8A2B2E; background: rgba(239,228,214,0.5); transition: background 180ms ease, color 180ms ease;" style-hover="background: #8A2B2E; color: #EFE4D6;">
+              <span style="white-space: nowrap;">Adéntrate en la selva</span>
+              <span style="font-family: 'Cormorant Garamond', serif; font-size: 15px;">→</span>
+            </a>
+            <div style="margin-top: 72px; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #6F6150;">Ilustraciones — Maria Sibylla Merian</div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;vistaPrevia&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Auto&quot;,&quot;Contenido&quot;],&quot;default&quot;:&quot;Auto&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Vista previa (editor)&quot;},&quot;clave&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;MIRADA&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Clave de acceso&quot;},&quot;topW&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:40,&quot;min&quot;:10,&quot;max&quot;:70,&quot;step&quot;:1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Imagen superior izq.&quot;},&quot;topMax&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:760,&quot;min&quot;:200,&quot;max&quot;:1000,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Imagen superior izq.&quot;},&quot;topX&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-8,&quot;min&quot;:-30,&quot;max&quot;:40,&quot;step&quot;:1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Imagen superior izq.&quot;},&quot;topY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-9,&quot;min&quot;:-30,&quot;max&quot;:50,&quot;step&quot;:1,&quot;unit&quot;:&quot;vh&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Imagen superior izq.&quot;},&quot;topRot&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-8,&quot;min&quot;:-30,&quot;max&quot;:30,&quot;step&quot;:1,&quot;unit&quot;:&quot;°&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Imagen superior izq.&quot;},&quot;topOpacity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.8,&quot;min&quot;:0.1,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Imagen superior izq.&quot;},&quot;botW&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:38,&quot;min&quot;:10,&quot;max&quot;:70,&quot;step&quot;:1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Imagen inferior der.&quot;},&quot;botMax&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:620,&quot;min&quot;:200,&quot;max&quot;:1000,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Imagen inferior der.&quot;},&quot;botX&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-7,&quot;min&quot;:-30,&quot;max&quot;:40,&quot;step&quot;:1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Imagen inferior der.&quot;},&quot;botY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-11,&quot;min&quot;:-30,&quot;max&quot;:50,&quot;step&quot;:1,&quot;unit&quot;:&quot;vh&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Imagen inferior der.&quot;},&quot;botRot&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:16,&quot;min&quot;:-30,&quot;max&quot;:30,&quot;step&quot;:1,&quot;unit&quot;:&quot;°&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Imagen inferior der.&quot;},&quot;botOpacity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.8,&quot;min&quot;:0.1,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Imagen inferior der.&quot;},&quot;veilCenter&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Velo&quot;},&quot;veilEdge&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.15,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Velo&quot;},&quot;veilCore&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:45,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Velo&quot;},&quot;veilW&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:95,&quot;min&quot;:20,&quot;max&quot;:150,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Velo&quot;},&quot;veilH&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:85,&quot;min&quot;:20,&quot;max&quot;:150,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Velo&quot;},&quot;veilY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:45,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Velo&quot;}}">
+class Component extends DCLogic {
+  state = { unlocked: false, code: '', error: false };
+
+  componentDidMount() {
+    window.abrirPuerta = (n) => {
+      if (n === 3) this.setState({ unlocked: true }, () => window.scrollTo(0, 0));
+    };
+  }
+  trySubmit() {
+    const key = String(this.props.clave ?? 'MIRADA').trim().toUpperCase();
+    if (this.state.code.trim() === key) {
+      this.setState({ unlocked: true, error: false });
+      window.scrollTo(0, 0);
+    } else this.setState({ error: true });
+  }
+  renderVals() {
+    const p = this.props;
+    const u = this.state.unlocked || p.vistaPrevia === 'Contenido';
+    return {
+      locked: !u,
+      open: u,
+      code: this.state.code,
+      errorOpacity: this.state.error ? 1 : 0,
+      onCode: (e) => this.setState({ code: e.target.value.toUpperCase(), error: false }),
+      onKeyDown: (e) => { if (e.key === 'Enter') this.trySubmit(); },
+      submit: () => this.trySubmit(),
+      topW: p.topW ?? 40,
+      topMax: p.topMax ?? 760,
+      topX: p.topX ?? -8,
+      topY: p.topY ?? -9,
+      topRot: p.topRot ?? -8,
+      topOpacity: p.topOpacity ?? 0.8,
+      botW: p.botW ?? 38,
+      botMax: p.botMax ?? 620,
+      botX: p.botX ?? -7,
+      botY: p.botY ?? -11,
+      botRot: p.botRot ?? 16,
+      botOpacity: p.botOpacity ?? 0.8,
+      veilCenter: p.veilCenter ?? 0.9,
+      veilEdge: p.veilEdge ?? 0.15,
+      veilCore: p.veilCore ?? 45,
+      veilW: p.veilW ?? 95,
+      veilH: p.veilH ?? 85,
+      veilY: p.veilY ?? 45,
+    };
+  }
+}
+</script>
+</body>
+</html>
