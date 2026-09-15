@@ -13,12 +13,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
 <style>
   html, body { margin: 0; padding: 0; background: #F1E8D4; }
+  html { overflow-y: scroll; scrollbar-gutter: stable; }
   body { -webkit-font-smoothing: antialiased; }
   a { color: #6B2B22; text-decoration: none; }
   a:hover { color: #2B2618; }
 </style>
 </helmet>
-<div style="position: relative; height: 100dvh; overflow: hidden; background: {{ bg }}; color: #2B2618; font-family: 'Cormorant Garamond', Georgia, serif; transition: background 600ms ease;">
+<div style="position: relative; min-height: 100dvh; background: {{ bg }}; color: #2B2618; font-family: 'Cormorant Garamond', Georgia, serif; transition: background 600ms ease;">
 
   <div style="position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; opacity: {{ vis1 }}; transition: opacity 600ms ease;">
     <img src="assets/merian-2.webp" alt="" style="position: absolute; top: {{ topY }}vh; left: {{ topX }}vw; width: {{ topW }}vw; max-width: {{ topMax }}px; opacity: {{ topOpacity }}; mix-blend-mode: multiply; transform: rotate({{ topRot }}deg);">
@@ -32,121 +33,139 @@
     <div style="position: absolute; inset: 0; background: radial-gradient(ellipse {{ veil2W }}% {{ veil2H }}% at 50% {{ veil2Y }}%, rgba(232,230,208,{{ veil2Center }}) 0%, rgba(232,230,208,{{ veil2Center }}) {{ veil2Core }}%, rgba(232,230,208,{{ veil2Edge }}) 100%);"></div>
   </div>
 
-  <div style="position: relative; z-index: 1; box-sizing: border-box; height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: safe center; padding: 64px 24px 100px; overflow-y: auto;">
+  <sc-if value="{{ isCover }}" hint-placeholder-val="{{ true }}">
+    <div style="position: relative; z-index: 1; box-sizing: border-box; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px; padding: 72px 24px; text-align: center;">
+      <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: #6B2B22;">
+        <span style="display: block; width: 34px; height: 1px; background: #6B2B22; opacity: 0.5;"></span>
+        <span>PRINCIPIO</span>
+        <span style="display: block; width: 34px; height: 1px; background: #6B2B22; opacity: 0.5;"></span>
+      </div>
+      <h1 style="margin: 0; font-size: clamp(56px, 12vw, 132px); font-weight: 300; line-height: 0.92; letter-spacing: -0.03em; text-wrap: balance;">La <em style="font-weight: 300;">Selva</em></h1>
+      <p style="margin: 0; max-width: 26ch; font-size: clamp(23px, 2.7vw, 31px); line-height: 1.45; font-weight: 300; color: #3A3526; text-wrap: pretty;">Ser salvaje es ser parte de la Selva.</p>
+      <button type="button" onClick="{{ enter }}" style="margin-top: 14px; display: inline-flex; align-items: center; gap: 14px; padding: 16px 32px; border: 1px solid #6B2B22; border-radius: 999px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #6B2B22; background: rgba(241,232,212,0.55); cursor: pointer; transition: background 180ms ease, color 180ms ease;" style-hover="background: #6B2B22; color: #F1E8D4;">
+        <span style="white-space: nowrap;">Explora ahora</span>
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 16px;">→</span>
+      </button>
+    </div>
+  </sc-if>
 
-    <sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ true }}">
-      <div style="width: 100%; max-width: 560px; display: flex; flex-direction: column; align-items: center; gap: 26px; text-align: center;">
-        <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: #6B2B22;">
-          <span style="display: block; width: 34px; height: 1px; background: #6B2B22; opacity: 0.5;"></span>
-          <span>PRINCIPIO</span>
-          <span style="display: block; width: 34px; height: 1px; background: #6B2B22; opacity: 0.5;"></span>
+  <sc-if value="{{ isStory }}">
+    <div style="position: relative; z-index: 1; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; padding: 96px 24px 120px;">
+      <div style="width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 56px;">
+
+        <div style="display: flex; flex-direction: column; gap: 18px; align-items: center; text-align: center;">
+          <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: #6B2B22;">
+            <span style="display: block; width: 34px; height: 1px; background: #6B2B22; opacity: 0.5;"></span>
+            <span>PRINCIPIO</span>
+            <span style="display: block; width: 34px; height: 1px; background: #6B2B22; opacity: 0.5;"></span>
+          </div>
+          <h2 style="margin: 0; font-size: clamp(38px, 7vw, 68px); font-weight: 300; line-height: 0.98; letter-spacing: -0.02em; text-wrap: balance;">La Selva:<br>El primer <br><em style="font-weight: 300;">hallazgo</em></h2>
+          <p style="margin: 0; max-width: 30ch; font-size: clamp(24px, 2.8vw, 32px); line-height: 1.45; color: #3A3526; text-wrap: pretty;">Usted es la Selva y la Selva es usted</p>
         </div>
-        <h1 style="margin: 0; font-size: clamp(40px, 7.5vw, 84px); font-weight: 300; line-height: 0.98; letter-spacing: -0.02em; text-wrap: balance;">La Selva: <br>El primer<br><em style="font-weight: 300;">hallazgo</em></h1>
-        <p style="margin: 0; max-width: 34ch; font-size: clamp(20px, 2.1vw, 25px); line-height: 1.6; color: #3A3526; text-wrap: pretty;">Usted es la Selva y la Selva es usted</p>
-        <div style="width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 20px; text-align: left; margin-top: 40px; padding-bottom: 8px;">
+
+        <div style="display: flex; flex-direction: column; gap: 18px;">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #6B2B22;">Principio</div>
-          <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #2B2618; text-wrap: pretty;">Ser salvaje es ser parte de la selva. Y eso es usted. La naturaleza de la Selva es su abundancia, su forma particular y exuberante de permanecer.</p>
+          <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #2B2618; text-wrap: pretty;">Ser Salvaje es ser parte de la Selva. Y eso es usted. La naturaleza de la Selva es su abundancia, su forma particular y exuberante de permanecer.</p>
+          <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #2B2618; text-wrap: pretty;">Sus innumerables tonos de verdes son sutiles y sólo una mirada atenta y salvaje puede diferenciar y por lo tanto sostener. Usted es esa mirada que sostiene la Selva.</p>
+          <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #2B2618; text-wrap: pretty;">Esto es una celebración de su forma salvaje de habitar el mundo. Porque en la Selva no se está, se habita, es una forma particular de vivir. No hay adentro o afuera, arriba o abajo. Hay conexión, sentido, sentimiento, sensación.</p>
+          <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #2B2618; text-wrap: pretty;">Por eso la Selva y lo Salvaje impone una manera de estar en el mundo que es la suya propia. Es su mirada siempre al acecho, su cuerpo buscando sentir y percibir, siempre en alerta para captar lo que el mundo le ofrece.</p>
+          <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #2B2618; text-wrap: pretty;">Porque la Selva refresca y limpia.</p>
         </div>
-      </div>
-    </sc-if>
 
-    <sc-if value="{{ isStep2 }}">
-      <div style="width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 20px;">
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #6B2B22;">Principio</div>
-        <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #2B2618; text-wrap: pretty;">Sus innumerables tonos de verdes son sutiles y sólo una mirada atenta y salvaje puede diferenciar y por lo tanto sostener. Usted es esa mirada que sostiene la Selva.</p>
-      </div>
-    </sc-if>
-
-    <sc-if value="{{ isStep3 }}">
-      <div style="width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 20px;">
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #6B2B22;">Principio</div>
-        <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #2B2618; text-wrap: pretty;">A partir del domingo vamos a celebrar su forma salvaje de habitar el mundo. Porque en la Selva no se está, se habita, es una forma particular de vivir. No hay adentro o afuera, arriba o abajo. Hay conexión, sentido, sentimiento, sensación.</p>
-      </div>
-    </sc-if>
-
-    <sc-if value="{{ isStep4 }}">
-      <div style="width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 32px;">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 28px; border-top: 1px solid rgba(43,38,24,0.18); border-bottom: 1px solid rgba(43,38,24,0.18); padding: 26px 0;">
-          <div style="display: flex; flex-direction: column; gap: 8px;">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: #6E6552;">Dónde</div>
-            <div style="font-size: 19px; line-height: 1.45;">Medellín</div>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 8px;">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: #6E6552;">Cuándo</div>
-            <div style="font-size: 19px; line-height: 1.45;">20 - 24 de septiembre</div>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 8px;">
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: #6E6552;">Progreso</div>
-            <div style="font-size: 19px; line-height: 1.45;">1 de 5 descubiertas</div>
-          </div>
-        </div>
         <div style="display: flex; flex-direction: column; gap: 14px;">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #6B2B22;">Principio</div>
-          <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #2B2618; text-wrap: pretty;">Es imposible pensar que para mi serán unos Perfect Days.<br><br>"It's such a perfect day<br>I'm glad I spend it with you<br>oh such a perfect day&nbsp;<br>you just keep me hanging on,<br>you just keep me hanging on"</p>
-          <a href="https://open.spotify.com/track/4TOMI010Sd4ZAX4aZ5TS85?si=9CKhTnHuS7O4KLA7C4VRVQ&amp;utm_source=whatsapp" target="_blank" rel="noopener" style="display: inline-flex; align-self: flex-start; align-items: center; gap: 12px; margin-top: 6px; padding: 12px 22px; border: 1px solid #6B2B22; border-radius: 999px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: #6B2B22; background: rgba(241,232,212,0.5); transition: background 180ms ease, color 180ms ease;" style-hover="background: #6B2B22; color: #F1E8D4;">
-            <span>Escuchar Perfect Day — Lou Reed</span>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #6B2B22;">Canción: Guitarra — Madredeus</div>
+          <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #2B2618; text-wrap: pretty;">Quería dejarle esta canción que no tiene nada que ver con la selva pero que tiene que ver con la idea de la nostalgia y de la posibilidad. Esta es una canción de Madredeus que actualiza el fado portugues con su dolor y sentimiento, con su saudade. Tiene que ver con imaginar un viaje a Portugal con usted. Con recorrer, con moverse, porque viajar es siempre fluir y dejarse conmover.</p>
+          <a href="https://open.spotify.com/track/1rnNgMJDYoUp4uyvTwk0W3?si=JoTQ3Ef2QyCAwkXcWlG04w&amp;utm_source=whatsapp" target="_blank" rel="noopener" style="display: inline-flex; align-self: center; align-items: center; gap: 12px; margin-top: 6px; padding: 12px 22px; border: 1px solid #6B2B22; border-radius: 999px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: #6B2B22; background: rgba(241,232,212,0.5); transition: background 180ms ease, color 180ms ease;" style-hover="background: #6B2B22; color: #F1E8D4;">
+            <span>Escuchar Guitarra — Madredeus</span>
             <span style="font-family: 'Cormorant Garamond', serif; font-size: 15px;">↗</span>
           </a>
         </div>
-        <p style="margin: 0; font-size: 17px; line-height: 1.65; color: #3A3526; text-wrap: pretty;">Encuentra la palabra que te lleva a la próxima parada.</p>
-        <button type="button" onClick="{{ next }}" style="display: inline-flex; align-self: flex-start; align-items: center; gap: 12px; padding: 14px 26px; border: 1px solid #6B2B22; border-radius: 999px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #6B2B22; background: rgba(241,232,212,0.5); cursor: pointer; transition: background 180ms ease, color 180ms ease;" style-hover="background: #6B2B22; color: #F1E8D4;">
-          <span>Buscar la estación 02</span>
-          <span style="font-family: 'Cormorant Garamond', serif; font-size: 15px;">→</span>
-        </button>
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #6E6552;">Ilustraciones — Maria Sibylla Merian</div>
-      </div>
-    </sc-if>
 
-    <sc-if value="{{ isGate }}">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 28px; border-top: 1px solid rgba(43,38,24,0.18); border-bottom: 1px solid rgba(43,38,24,0.18); padding: 26px 0;">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: #6E6552;">Dónde</div>
+            <div style="font-size: 19px; line-height: 1.45;">Cra. 43B #12-39, El Poblado, Medellín</div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: #6E6552;">Cuándo</div>
+            <div style="font-size: 19px; line-height: 1.45;">20 de septiembre a 24 de septiembre</div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 22px; padding-top: 6px;">
+          <p style="margin: 0; text-align: center; font-size: 17px; line-height: 1.65; color: #3A3526; text-wrap: pretty;">Encuentra la palabra que te lleva a la próxima parada.</p>
+          <button type="button" onClick="{{ toGate }}" style="display: inline-flex; align-self: center; align-items: center; gap: 12px; padding: 14px 26px; border: 1px solid #6B2B22; border-radius: 999px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #6B2B22; background: rgba(241,232,212,0.5); cursor: pointer; transition: background 180ms ease, color 180ms ease;" style-hover="background: #6B2B22; color: #F1E8D4;">
+            <span style="white-space: nowrap;">{{ forwardLabel }}</span>
+            <span style="font-family: 'Cormorant Garamond', serif; font-size: 15px;">→</span>
+          </button>
+          <div style="margin-top: 72px; display: flex; flex-direction: column; align-items: center; gap: 14px;">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: #6E6552;">TU ENTORNO</div>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+              <button type="button" onClick="{{ toStory }}" style="padding: 9px 18px; border: 1px solid #6B2B22; border-radius: 999px; background: #6B2B22; color: #F1E8D4; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer;">01 · La Selva</button>
+              <sc-if value="{{ unlocked }}">
+                <button type="button" onClick="{{ toSt2 }}" style="padding: 9px 18px; border: 1px solid rgba(107,43,34,0.5); border-radius: 999px; background: rgba(241,232,212,0.5); color: #6B2B22; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; transition: background 180ms ease, color 180ms ease;" style-hover="background: #6B2B22; color: #F1E8D4;">02 · La segunda muda</button>
+              </sc-if>
+            </div>
+          </div>
+          <div style="margin-top: 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #6E6552;">Ilustraciones — Maria Sibylla Merian</div>
+        </div>
+
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isGate }}">
+    <div style="position: relative; z-index: 1; box-sizing: border-box; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 72px 24px;">
       <div style="width: 100%; max-width: 420px; display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center;">
         <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: #55601F;">
           <span style="display: block; width: 34px; height: 1px; background: #55601F; opacity: 0.5;"></span>
-          <span>Estación 02</span>
+          <span>PRINCIPIO</span>
           <span style="display: block; width: 34px; height: 1px; background: #55601F; opacity: 0.5;"></span>
         </div>
-        <h2 style="margin: 0; font-size: clamp(32px, 5.5vw, 52px); font-weight: 300; line-height: 1.05; letter-spacing: -0.02em; color: #23281A; text-wrap: balance;">Escribí la <em style="font-weight: 300;">clave</em></h2>
-        <p style="margin: 0; max-width: 30ch; font-size: 17px; line-height: 1.6; color: #3A4029; text-wrap: pretty;">La palabra que encontraste en la estación anterior abre esta parada.</p>
+        <h2 style="margin: 0; font-size: clamp(32px, 5.5vw, 52px); font-weight: 300; line-height: 1.05; letter-spacing: -0.02em; color: #23281A; text-wrap: balance;">Escribe la <em style="font-weight: 300;">clave</em></h2>
+        <p style="margin: 0; max-width: 30ch; font-size: 17px; line-height: 1.6; color: #3A4029; text-wrap: pretty;">La palabra que encontraste nos adentra en la selva.</p>
         <input value="{{ code }}" onChange="{{ onCode }}" onKeyDown="{{ onKeyDown }}" placeholder="CLAVE" autoCapitalize="characters" autoComplete="off" spellCheck="false" style="width: 100%; box-sizing: border-box; padding: 16px 18px; border: 1px solid rgba(85,96,31,0.45); border-radius: 4px; background: rgba(232,230,208,0.75); color: #23281A; font-family: 'IBM Plex Mono', monospace; font-size: 16px; letter-spacing: 0.28em; text-transform: uppercase; text-align: center; outline: none;" style-focus="border-color: #55601F;">
         <button type="button" onClick="{{ submit }}" style="display: inline-flex; align-items: center; gap: 12px; padding: 14px 26px; border: 1px solid #55601F; border-radius: 999px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #55601F; background: rgba(232,230,208,0.5); cursor: pointer; transition: background 180ms ease, color 180ms ease;" style-hover="background: #55601F; color: #E8E6D0;">
           <span>Desbloquear</span>
           <span style="font-family: 'Cormorant Garamond', serif; font-size: 15px;">→</span>
         </button>
         <div style="min-height: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #8A3B22; opacity: {{ errorOpacity }};">Clave incorrecta</div>
+        <button type="button" onClick="{{ backToStory }}" style="margin-top: 4px; padding: 0; border: 0; background: none; cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #6B7055;">← Volver</button>
       </div>
-    </sc-if>
+    </div>
+  </sc-if>
 
-    <sc-if value="{{ isStep6 }}">
-      <div style="width: 100%; max-width: 560px; display: flex; flex-direction: column; align-items: center; gap: 26px; text-align: center; color: #23281A;">
-        <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: #55601F;">
-          <span style="display: block; width: 34px; height: 1px; background: #55601F; opacity: 0.5;"></span>
-          <span>Estación 02</span>
-          <span style="display: block; width: 34px; height: 1px; background: #55601F; opacity: 0.5;"></span>
+  <sc-if value="{{ isStation2 }}">
+    <div style="position: relative; z-index: 1; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; padding: 96px 24px 120px; color: #23281A;">
+      <div style="width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 56px;">
+
+        <div style="display: flex; flex-direction: column; gap: 18px; align-items: center; text-align: center;">
+          <div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: #55601F;">
+            <span style="display: block; width: 34px; height: 1px; background: #55601F; opacity: 0.5;"></span>
+            <span>PRINCIPIO</span>
+            <span style="display: block; width: 34px; height: 1px; background: #55601F; opacity: 0.5;"></span>
+          </div>
+          <h2 style="margin: 0; font-size: clamp(38px, 7vw, 68px); font-weight: 300; line-height: 0.98; letter-spacing: -0.02em; text-wrap: balance;">La segunda<br><em style="font-weight: 300;">muda</em></h2>
+          <p style="margin: 0; max-width: 30ch; font-size: clamp(24px, 2.8vw, 32px); line-height: 1.45; color: #3A4029; text-wrap: pretty;">Ser Salvaje es ser parte de la Selva</p>
         </div>
-        <h1 style="margin: 0; font-size: clamp(40px, 7.5vw, 84px); font-weight: 300; line-height: 0.98; letter-spacing: -0.02em; text-wrap: balance;">La segunda<br><em style="font-weight: 300;">muda</em></h1>
-        <p style="margin: 0; max-width: 34ch; font-size: clamp(20px, 2.1vw, 25px); line-height: 1.6; color: #3A4029; text-wrap: pretty;">Texto de muestra. Segunda estación: acá va lo que la persona acaba de desbloquear y por qué esta parada cambia lo que sabía en la anterior.</p>
-        <div style="width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 20px; text-align: left; margin-top: 40px; padding-bottom: 8px;">
+
+        <div style="display: flex; flex-direction: column; gap: 18px;">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #55601F;">Principio</div>
-          <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #23281A; text-wrap: pretty;">Placeholder de la pista. Un acertijo breve que apunte a la tercera estación sin nombrarla.</p>
+          <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #23281A; text-wrap: pretty;">Hablar de comienzos no es posible con usted. Si este es el principio que es lo que establece una bienvenida esto no lo es porque la naturaleza de la Selva es que no hay nunca un comienzo, un orden como lo conocemos (principio, medio, fin). Con usted y la Selva no hay un continuo lineal sino más bien un fluir constante hacia muchas direcciones.</p>
+          <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #23281A; text-wrap: pretty;">Por eso usted es la Selva y la Selva es usted. No hay un límite entre lo que la Selva nos abre y nos muestra: exuberancia, miedo, sentidos, energía y usted.</p>
+          <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #23281A; text-wrap: pretty;">Es allí en dónde la Selva y lo Salvaje permiten abrirse a captar lo que nos amenaza pero también lo que nos atraviesa y nos hace confrontar nuestros miedos y deseos.</p>
+          <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #23281A; text-wrap: pretty;">¿Si esto no es un principio entonces qué es? Es un continuo presente. Es sólo una gran continuación. ¿De qué? No se sabe pero lo que tiene es un aire de eternidad desbocada.</p>
+          <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #23281A; text-wrap: pretty;">En el libro de Valeria Luiselli que como ya le he dicho no puedo dejar de pensar se preguntaba:</p>
+          <p style="margin: 8px 0 8px 0; padding-left: 22px; border-left: 1px solid rgba(35,40,26,0.28); font-size: clamp(20px, 2.4vw, 28px); line-height: 1.42; font-weight: 300; font-style: italic; color: #3A4029; text-wrap: pretty;">“¿Qué es lo que nos ocurre a medida que crecemos? ¿Es que entre más sabemos y entendemos, más nos pesan las cosas? ¿Es el tiempo acumulado, casi molecularmente, que deja entrar cada vez menos luz y menos aire?”</p>
+          <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #23281A; text-wrap: pretty;">Me gusta pensar que a la Selva no le ocurre esto. Siento que usted siempre tiene esa mirada liviana a través de la cual siempre entra más luz y es un torrente de aire fresco.</p>
+          <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #23281A; text-wrap: pretty;">Le dejo esta canción de Neil Young <i>Such a woman</i>, que obviamente no falta en la playlist de Équo. Dice dos cosas que me gusta pensar cuando la oigo.</p>
+          <p style="margin: 0; font-size: clamp(20px, 2.4vw, 28px); line-height: 1.5; font-weight: 300; font-style: italic; color: #3A4029; text-wrap: pretty;"><b style="">You are such a woman - Usted es tremenda mujer<br>No one else can kill me like you do - Nadie me mata como usted</b></p>
+          <a href="https://open.spotify.com/search/Neil%20Young%20Such%20a%20Woman" target="_blank" rel="noopener" style="display: inline-flex; align-self: center; align-items: center; gap: 12px; margin-top: 6px; padding: 12px 22px; border: 1px solid #55601F; border-radius: 999px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: #55601F; background: rgba(232,230,208,0.5); transition: background 180ms ease, color 180ms ease;" style-hover="background: #55601F; color: #E8E6D0;">
+            <span style="white-space: nowrap;">Escuchar Such a Woman — Neil Young</span>
+            <span style="font-family: 'Cormorant Garamond', serif; font-size: 15px;">↗</span>
+          </a>
         </div>
-      </div>
-    </sc-if>
 
-    <sc-if value="{{ isStep7 }}">
-      <div style="width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 20px; color: #23281A;">
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #55601F;">Principio</div>
-        <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #23281A; text-wrap: pretty;">Texto nuevo de esta pantalla.</p>
-      </div>
-    </sc-if>
-
-    <sc-if value="{{ isStep8 }}">
-      <div style="width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 20px; color: #23281A;">
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #55601F;">Principio</div>
-        <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #23281A; text-wrap: pretty;">Texto nuevo de esta pantalla.</p>
-      </div>
-    </sc-if>
-
-    <sc-if value="{{ isStep9 }}">
-      <div style="width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 32px; color: #23281A;">
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 28px; border-top: 1px solid rgba(35,40,26,0.20); border-bottom: 1px solid rgba(35,40,26,0.20); padding: 26px 0;">
           <div style="display: flex; flex-direction: column; gap: 8px;">
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: #6B7055;">Dónde</div>
@@ -161,87 +180,73 @@
             <div style="font-size: 19px; line-height: 1.45;">2 de 5 descubiertas</div>
           </div>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 14px;">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #55601F;">Principio</div>
-          <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #23281A; text-wrap: pretty;">Texto nuevo de este bloque.</p>
+
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 22px; padding-top: 6px;">
+          <p style="margin: 0; text-align: center; font-size: 17px; line-height: 1.65; color: #3A4029; text-wrap: pretty;">Faltan tres. Escaneá el próximo código con la misma tarjeta para seguir abriendo la historia.</p>
+          <a href="Estacion 03.dc.html" style="display: inline-flex; align-self: center; align-items: center; gap: 12px; padding: 14px 26px; border: 1px solid #55601F; border-radius: 999px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #55601F; background: rgba(232,230,208,0.5); transition: background 180ms ease, color 180ms ease;" style-hover="background: #55601F; color: #E8E6D0;">
+            <span style="white-space: nowrap;">Adéntrate en la selva</span>
+            <span style="font-family: 'Cormorant Garamond', serif; font-size: 15px;">→</span>
+          </a>
+          <div style="margin-top: 72px; display: flex; flex-direction: column; align-items: center; gap: 14px;">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: #6B7055;">Estaciones descubiertas</div>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+              <button type="button" onClick="{{ toStory }}" style="padding: 9px 18px; border: 1px solid rgba(85,96,31,0.5); border-radius: 999px; background: rgba(232,230,208,0.5); color: #55601F; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; transition: background 180ms ease, color 180ms ease;" style-hover="background: #55601F; color: #E8E6D0;">01 · La Selva</button>
+              <button type="button" onClick="{{ toSt2 }}" style="padding: 9px 18px; border: 1px solid #55601F; border-radius: 999px; background: #55601F; color: #E8E6D0; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer;">02 · La segunda muda</button>
+            </div>
+          </div>
+          <div style="margin-top: 40px; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #6B7055;">Ilustraciones — Maria Sibylla Merian</div>
         </div>
-        <p style="margin: 0; font-size: 17px; line-height: 1.65; color: #3A4029; text-wrap: pretty;">Faltan tres. Escaneá el próximo código con la misma tarjeta para seguir abriendo la historia.</p>
-        <a href="Estacion 03.dc.html" style="display: inline-flex; align-self: flex-start; align-items: center; gap: 12px; padding: 14px 26px; border: 1px solid #55601F; border-radius: 999px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #55601F; background: rgba(232,230,208,0.5); transition: background 180ms ease, color 180ms ease;" style-hover="background: #55601F; color: #E8E6D0;">
-          <span>Buscar la estación 03</span>
-          <span style="font-family: 'Cormorant Garamond', serif; font-size: 15px;">→</span>
-        </a>
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #6B7055;">Ilustraciones — Maria Sibylla Merian</div>
+
       </div>
-    </sc-if>
-
-  </div>
-
-  <div style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 2; display: {{ navDisplay }}; align-items: center; justify-content: center; gap: 22px; padding: 34px 24px 26px; background: {{ navBg }};">
-    <button type="button" onClick="{{ prev }}" aria-label="Anterior" style="display: flex; align-items: center; justify-content: center; width: 46px; height: 46px; border-radius: 999px; border: 1px solid {{ accentSoft }}; background: {{ bg }}; color: {{ accent }}; font-family: 'Cormorant Garamond', serif; font-size: 18px; cursor: pointer; opacity: {{ prevOpacity }};">←</button>
-    <div style="display: flex; align-items: center; gap: 10px;">
-      <span style="display: block; width: 7px; height: 7px; border-radius: 999px; background: {{ accent }}; opacity: {{ dot1 }};"></span>
-      <span style="display: block; width: 7px; height: 7px; border-radius: 999px; background: {{ accent }}; opacity: {{ dot2 }};"></span>
-      <span style="display: block; width: 7px; height: 7px; border-radius: 999px; background: {{ accent }}; opacity: {{ dot3 }};"></span>
-      <span style="display: block; width: 7px; height: 7px; border-radius: 999px; background: {{ accent }}; opacity: {{ dot4 }};"></span>
     </div>
-    <button type="button" onClick="{{ next }}" aria-label="Siguiente" style="display: flex; align-items: center; justify-content: center; width: 46px; height: 46px; border-radius: 999px; border: 1px solid {{ accentSoft }}; background: {{ bg }}; color: {{ accent }}; font-family: 'Cormorant Garamond', serif; font-size: 18px; cursor: pointer; opacity: {{ nextOpacity }};">→</button>
-  </div>
+  </sc-if>
+
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;clave&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;SELVA&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Clave de acceso&quot;},&quot;topW&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:42,&quot;min&quot;:10,&quot;max&quot;:70,&quot;step&quot;:1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen sup. izq.&quot;},&quot;topMax&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1000,&quot;min&quot;:200,&quot;max&quot;:1000,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen sup. izq.&quot;},&quot;topX&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-11,&quot;min&quot;:-30,&quot;max&quot;:40,&quot;step&quot;:1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen sup. izq.&quot;},&quot;topY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-10,&quot;min&quot;:-30,&quot;max&quot;:50,&quot;step&quot;:1,&quot;unit&quot;:&quot;vh&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen sup. izq.&quot;},&quot;topRot&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:30,&quot;min&quot;:-30,&quot;max&quot;:30,&quot;step&quot;:1,&quot;unit&quot;:&quot;°&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen sup. izq.&quot;},&quot;topOpacity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.8,&quot;min&quot;:0.1,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen sup. izq.&quot;},&quot;botW&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:39,&quot;min&quot;:10,&quot;max&quot;:70,&quot;step&quot;:1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen inf. der.&quot;},&quot;botMax&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:590,&quot;min&quot;:200,&quot;max&quot;:1000,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen inf. der.&quot;},&quot;botX&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-5,&quot;min&quot;:-30,&quot;max&quot;:40,&quot;step&quot;:1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen inf. der.&quot;},&quot;botY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-6,&quot;min&quot;:-30,&quot;max&quot;:50,&quot;step&quot;:1,&quot;unit&quot;:&quot;vh&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen inf. der.&quot;},&quot;botRot&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:6,&quot;min&quot;:-30,&quot;max&quot;:30,&quot;step&quot;:1,&quot;unit&quot;:&quot;°&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen inf. der.&quot;},&quot;botOpacity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.88,&quot;min&quot;:0.1,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen inf. der.&quot;},&quot;veilCenter&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.45,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · velo&quot;},&quot;veilEdge&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · velo&quot;},&quot;veilCore&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:75,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · velo&quot;},&quot;veilW&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:45,&quot;min&quot;:20,&quot;max&quot;:150,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · velo&quot;},&quot;veilH&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:45,&quot;min&quot;:20,&quot;max&quot;:150,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · velo&quot;},&quot;veilY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:45,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · velo&quot;},&quot;top2W&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:42,&quot;min&quot;:10,&quot;max&quot;:70,&quot;step&quot;:1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen sup. izq.&quot;},&quot;top2Max&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:900,&quot;min&quot;:200,&quot;max&quot;:1000,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen sup. izq.&quot;},&quot;top2X&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-9,&quot;min&quot;:-30,&quot;max&quot;:40,&quot;step&quot;:1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen sup. izq.&quot;},&quot;top2Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-8,&quot;min&quot;:-30,&quot;max&quot;:50,&quot;step&quot;:1,&quot;unit&quot;:&quot;vh&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen sup. izq.&quot;},&quot;top2Rot&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:12,&quot;min&quot;:-30,&quot;max&quot;:30,&quot;step&quot;:1,&quot;unit&quot;:&quot;°&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen sup. izq.&quot;},&quot;top2Opacity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.8,&quot;min&quot;:0.1,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen sup. izq.&quot;},&quot;bot2W&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:36,&quot;min&quot;:10,&quot;max&quot;:70,&quot;step&quot;:1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen inf. der.&quot;},&quot;bot2Max&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:560,&quot;min&quot;:200,&quot;max&quot;:1000,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen inf. der.&quot;},&quot;bot2X&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-8,&quot;min&quot;:-30,&quot;max&quot;:40,&quot;step&quot;:1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen inf. der.&quot;},&quot;bot2Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-12,&quot;min&quot;:-30,&quot;max&quot;:50,&quot;step&quot;:1,&quot;unit&quot;:&quot;vh&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen inf. der.&quot;},&quot;bot2Rot&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-14,&quot;min&quot;:-30,&quot;max&quot;:30,&quot;step&quot;:1,&quot;unit&quot;:&quot;°&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen inf. der.&quot;},&quot;bot2Opacity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.85,&quot;min&quot;:0.1,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen inf. der.&quot;},&quot;veil2Center&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.9,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · velo&quot;},&quot;veil2Edge&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.15,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · velo&quot;},&quot;veil2Core&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:45,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · velo&quot;},&quot;veil2W&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:95,&quot;min&quot;:20,&quot;max&quot;:150,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · velo&quot;},&quot;veil2H&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:85,&quot;min&quot;:20,&quot;max&quot;:150,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · velo&quot;},&quot;veil2Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:45,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · velo&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;vistaPrevia&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Auto&quot;,&quot;Carátula&quot;,&quot;Historia&quot;,&quot;Clave&quot;,&quot;Estación 02&quot;],&quot;default&quot;:&quot;Auto&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Vista previa (editor)&quot;},&quot;clave&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;SELVA&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Clave de acceso&quot;},&quot;topW&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:42,&quot;min&quot;:10,&quot;max&quot;:70,&quot;step&quot;:1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen sup. izq.&quot;},&quot;topMax&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1000,&quot;min&quot;:200,&quot;max&quot;:1000,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen sup. izq.&quot;},&quot;topX&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-11,&quot;min&quot;:-30,&quot;max&quot;:40,&quot;step&quot;:1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen sup. izq.&quot;},&quot;topY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-10,&quot;min&quot;:-30,&quot;max&quot;:50,&quot;step&quot;:1,&quot;unit&quot;:&quot;vh&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen sup. izq.&quot;},&quot;topRot&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:30,&quot;min&quot;:-30,&quot;max&quot;:30,&quot;step&quot;:1,&quot;unit&quot;:&quot;°&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen sup. izq.&quot;},&quot;topOpacity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.8,&quot;min&quot;:0.1,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen sup. izq.&quot;},&quot;botW&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:39,&quot;min&quot;:10,&quot;max&quot;:70,&quot;step&quot;:1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen inf. der.&quot;},&quot;botMax&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:590,&quot;min&quot;:200,&quot;max&quot;:1000,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen inf. der.&quot;},&quot;botX&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-5,&quot;min&quot;:-30,&quot;max&quot;:40,&quot;step&quot;:1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen inf. der.&quot;},&quot;botY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-6,&quot;min&quot;:-30,&quot;max&quot;:50,&quot;step&quot;:1,&quot;unit&quot;:&quot;vh&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen inf. der.&quot;},&quot;botRot&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:6,&quot;min&quot;:-30,&quot;max&quot;:30,&quot;step&quot;:1,&quot;unit&quot;:&quot;°&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen inf. der.&quot;},&quot;botOpacity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.88,&quot;min&quot;:0.1,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · imagen inf. der.&quot;},&quot;veilCenter&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.35,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · velo&quot;},&quot;veilEdge&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · velo&quot;},&quot;veilCore&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:78,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · velo&quot;},&quot;veilW&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:45,&quot;min&quot;:20,&quot;max&quot;:150,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · velo&quot;},&quot;veilH&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:45,&quot;min&quot;:20,&quot;max&quot;:150,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · velo&quot;},&quot;veilY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:45,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E01 · velo&quot;},&quot;top2W&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:42,&quot;min&quot;:10,&quot;max&quot;:70,&quot;step&quot;:1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen sup. izq.&quot;},&quot;top2Max&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:900,&quot;min&quot;:200,&quot;max&quot;:1000,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen sup. izq.&quot;},&quot;top2X&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-9,&quot;min&quot;:-30,&quot;max&quot;:40,&quot;step&quot;:1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen sup. izq.&quot;},&quot;top2Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-8,&quot;min&quot;:-30,&quot;max&quot;:50,&quot;step&quot;:1,&quot;unit&quot;:&quot;vh&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen sup. izq.&quot;},&quot;top2Rot&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:12,&quot;min&quot;:-30,&quot;max&quot;:30,&quot;step&quot;:1,&quot;unit&quot;:&quot;°&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen sup. izq.&quot;},&quot;top2Opacity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.8,&quot;min&quot;:0.1,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen sup. izq.&quot;},&quot;bot2W&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:36,&quot;min&quot;:10,&quot;max&quot;:70,&quot;step&quot;:1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen inf. der.&quot;},&quot;bot2Max&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:560,&quot;min&quot;:200,&quot;max&quot;:1000,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen inf. der.&quot;},&quot;bot2X&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-4,&quot;min&quot;:-30,&quot;max&quot;:40,&quot;step&quot;:1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen inf. der.&quot;},&quot;bot2Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-6,&quot;min&quot;:-30,&quot;max&quot;:50,&quot;step&quot;:1,&quot;unit&quot;:&quot;vh&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen inf. der.&quot;},&quot;bot2Rot&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:5,&quot;min&quot;:-30,&quot;max&quot;:30,&quot;step&quot;:1,&quot;unit&quot;:&quot;°&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen inf. der.&quot;},&quot;bot2Opacity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.85,&quot;min&quot;:0.1,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · imagen inf. der.&quot;},&quot;veil2Center&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.4,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · velo&quot;},&quot;veil2Edge&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · velo&quot;},&quot;veil2Core&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:58,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · velo&quot;},&quot;veil2W&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:72,&quot;min&quot;:20,&quot;max&quot;:150,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · velo&quot;},&quot;veil2H&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:69,&quot;min&quot;:20,&quot;max&quot;:150,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · velo&quot;},&quot;veil2Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:80,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;E02 · velo&quot;},&quot;veil0Center&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Carátula · velo&quot;},&quot;veil0Edge&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Carátula · velo&quot;},&quot;veil0Core&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:75,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Carátula · velo&quot;},&quot;veil0W&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:45,&quot;min&quot;:20,&quot;max&quot;:150,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Carátula · velo&quot;},&quot;veil0H&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:45,&quot;min&quot;:20,&quot;max&quot;:150,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Carátula · velo&quot;},&quot;veil0Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:45,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Carátula · velo&quot;}}">
 class Component extends DCLogic {
-  state = { step: 1, unlocked: false, code: '', error: false };
-  total = 9;
+  state = { view: 'cover', unlocked: false, code: '', error: false };
 
   componentDidMount() {
-    this.onKey = (e) => {
-      if (this.state.step === 5) return;
-      if (e.key === 'ArrowRight') this.go(1);
-      if (e.key === 'ArrowLeft') this.go(-1);
+    // Puente para la capa de mecánica del sitio publicado (mecanica.js):
+    // abre una puerta sin tocar el DOM del runtime.
+    window.abrirPuerta = (n) => {
+      if (n === 2) this.setState({ unlocked: true, view: 'st2' }, () => window.scrollTo(0, 0));
     };
-    window.addEventListener('keydown', this.onKey);
+    window.cerrarPuerta = () => this.setState({ view: 'story' });
   }
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.onKey);
-  }
-  go(d) {
-    this.setState(s => {
-      let n = s.step + d;
-      if (n === 5 && s.unlocked) n = d > 0 ? 6 : 4;
-      return { step: Math.min(this.total, Math.max(1, n)) };
-    });
+  setView(v) {
+    this.setState({ view: v });
+    window.scrollTo(0, 0);
   }
   trySubmit() {
     const key = String(this.props.clave ?? 'SELVA').trim().toUpperCase();
-    if (this.state.code.trim() === key) this.setState({ unlocked: true, error: false, step: 6 });
-    else this.setState({ error: true });
+    if (this.state.code.trim() === key) {
+      this.setState({ unlocked: true, error: false, view: 'st2' });
+      window.scrollTo(0, 0);
+    } else this.setState({ error: true });
   }
   renderVals() {
     const p = this.props;
-    const s = this.state.step;
-    const st2 = s >= 5;
-    const local = st2 ? (s === 5 ? 0 : s - 5) : s;
+    const map = { 'Carátula': 'cover', 'Historia': 'story', 'Clave': 'gate', 'Estación 02': 'st2' };
+    const forced = p.vistaPrevia && p.vistaPrevia !== 'Auto' ? map[p.vistaPrevia] : null;
+    const v = forced || this.state.view;
+    const st2 = v === 'gate' || v === 'st2';
     return {
-      isStep1: s === 1, isStep2: s === 2, isStep3: s === 3, isStep4: s === 4,
-      isGate: s === 5,
-      isStep6: s === 6, isStep7: s === 7, isStep8: s === 8, isStep9: s === 9,
+      isCover: v === 'cover',
+      isStory: v === 'story',
+      isGate: v === 'gate',
+      isStation2: v === 'st2',
+      enter: () => this.setView('story'),
+      toGate: () => this.setView(this.state.unlocked ? 'st2' : 'gate'),
+      unlocked: this.state.unlocked,
+      forwardLabel: this.state.unlocked ? 'Ir a la estación 02' : 'Sigue explorando',
+      backToStory: () => this.setView('story'),
+      toStory: () => this.setView('story'),
+      toSt2: () => this.setView('st2'),
       bg: st2 ? '#E8E6D0' : '#F1E8D4',
-      accent: st2 ? '#55601F' : '#6B2B22',
-      accentSoft: st2 ? 'rgba(85,96,31,0.45)' : 'rgba(107,43,34,0.45)',
-      navBg: st2
-        ? 'linear-gradient(to top, #E8E6D0 58%, rgba(232,230,208,0))'
-        : 'linear-gradient(to top, #F1E8D4 58%, rgba(241,232,212,0))',
-      navDisplay: s === 5 ? 'none' : 'flex',
       vis1: st2 ? 0 : 1,
       vis2: st2 ? 1 : 0,
-      dot1: local === 1 ? 1 : 0.25,
-      dot2: local === 2 ? 1 : 0.25,
-      dot3: local === 3 ? 1 : 0.25,
-      dot4: local === 4 ? 1 : 0.25,
-      prev: () => this.go(-1),
-      next: () => this.go(1),
-      prevOpacity: s === 1 ? 0.3 : 1,
-      nextOpacity: s === this.total ? 0.3 : 1,
       code: this.state.code,
       errorOpacity: this.state.error ? 1 : 0,
       onCode: (e) => this.setState({ code: e.target.value.toUpperCase(), error: false }),
@@ -259,12 +264,12 @@ class Component extends DCLogic {
       botX: p.botX ?? -5,
       botY: p.botY ?? -6,
       botRot: p.botRot ?? 6,
-      veilCenter: p.veilCenter ?? 0.45,
-      veilEdge: p.veilEdge ?? 0,
-      veilCore: p.veilCore ?? 75,
-      veilW: p.veilW ?? 45,
-      veilH: p.veilH ?? 45,
-      veilY: p.veilY ?? 45,
+      veilCenter: v === 'cover' ? (p.veil0Center ?? 0.45) : (p.veilCenter ?? 0.45),
+      veilEdge: v === 'cover' ? (p.veil0Edge ?? 0) : (p.veilEdge ?? 0),
+      veilCore: v === 'cover' ? (p.veil0Core ?? 75) : (p.veilCore ?? 75),
+      veilW: v === 'cover' ? (p.veil0W ?? 45) : (p.veilW ?? 45),
+      veilH: v === 'cover' ? (p.veil0H ?? 45) : (p.veilH ?? 45),
+      veilY: v === 'cover' ? (p.veil0Y ?? 45) : (p.veilY ?? 45),
       top2W: p.top2W ?? 42,
       top2Max: p.top2Max ?? 900,
       top2Opacity: p.top2Opacity ?? 0.8,

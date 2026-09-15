@@ -43,6 +43,25 @@
         { src: "assets/merian-4.webp", css: "bottom:-12vh;right:-8vw;width:36vw;max-width:560px;opacity:.85;transform:rotate(-14deg)" }
       ],
       velo: "radial-gradient(ellipse 95% 85% at 50% 45%, rgba(232,230,208,.9) 0%, rgba(232,230,208,.9) 45%, rgba(232,230,208,.15) 100%)"
+    },
+    {
+      // Vive en su propia página (Estacion 03.dc.html). Necesita
+      // assets/merian-5.webp y merian-6.webp convertidos desde los PNG.
+      estacion: 3,
+      clave: "MIRADA",
+      rotulo: "Estación 03",
+      titulo: 'Escriba la <em>clave</em>',
+      ayuda: "La palabra que encontró nos adentra en la selva.",
+      crema: "#EFE4D6",
+      tinta: "#2A2118",
+      cuerpo: "#3F3325",
+      acento: "#8A2B2E",
+      error: "#8A2B2E",
+      fondo: [
+        { src: "assets/merian-5.webp", css: "top:-9vh;left:-8vw;width:40vw;max-width:760px;opacity:.8;transform:rotate(-8deg)" },
+        { src: "assets/merian-6.webp", css: "bottom:-11vh;right:-7vw;width:38vw;max-width:620px;opacity:.8;transform:rotate(16deg)" }
+      ],
+      velo: "radial-gradient(ellipse 95% 85% at 50% 45%, rgba(239,228,214,.9) 0%, rgba(239,228,214,.9) 45%, rgba(239,228,214,.15) 100%)"
     }
   ];
 
@@ -87,6 +106,18 @@
     bloqueadoHasta = Date.now() + (pausa || 900);
     var f = flecha(dir > 0 ? "→" : "←");
     if (f) f.click();
+  }
+
+  // La versión de scroll continuo ya no navega con flechas: el diseño
+  // expone window.abrirPuerta(n) para cruzar sin tocar su DOM. Si existe,
+  // ese es el camino; si no, caemos a la flecha de la versión paginada.
+  function cruzar(p, dir) {
+    if (typeof window.abrirPuerta === "function") {
+      bloqueadoHasta = Date.now() + 900;
+      window.abrirPuerta(p.estacion);
+      return;
+    }
+    saltar(dir);
   }
 
   document.addEventListener("click", function (e) {
@@ -232,7 +263,7 @@
       if (norm(campo.value) === norm(p.clave)) {
         abrir(p.estacion);
         quitarPuerta();
-        saltar(1);
+        cruzar(p, 1);
       } else {
         d.classList.remove("mal");
         void d.offsetWidth;
@@ -281,7 +312,11 @@
     // dirección en la que venía.
     if (!p) {
       quitarPuerta();
-      if (saltosSeguidos < 2) { saltosSeguidos++; saltar(ultimaDireccion); }
+      if (saltosSeguidos < 2) {
+        saltosSeguidos++;
+        var ya = PUERTAS[PUERTAS.length - 1];
+        cruzar(ya, ultimaDireccion);
+      }
       return;
     }
 

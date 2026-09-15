@@ -10,9 +10,9 @@
 #   1. Apunta las ilustraciones a las versiones livianas (webp).
 #   2. Cambia 100vh por 100dvh, o la barra del navegador del
 #      celular tapa los botones de abajo.
-#   3. Quita el candado interno del runtime, que no sirve porque
-#      su campo de texto no se dibuja. La cerradura de verdad la
-#      pone mecanica.js.
+#   3. (ya no hace falta) La versión de scroll continuo no tiene
+#      el candado por pasos de la versión paginada: el diseño expone
+#      window.abrirPuerta(n) y mecanica.js lo usa para cruzar.
 #   4. Engancha mecanica.js al final de la página.
 #
 # Cada vez que exportes de nuevo desde Claude Design, corre esto
@@ -35,12 +35,13 @@ sed \
   -e 's|uploads/HTC_Heritage%20Library_Nature%20by%20Merian%2006Element%201\.png|assets/merian-1.webp|g' \
   -e 's|uploads/HTC_Heritage%20Library_Nature%20by%20Merian%2004Element%201\.png|assets/merian-3.webp|g' \
   -e 's|uploads/HTC_Heritage%20Library_Nature%20by%20Merian%2004Element%203\.png|assets/merian-4.webp|g' \
+  -e 's|uploads/HTC_Heritage%20Library_Nature%20by%20Merian%2003Element%201\.png|assets/merian-5.webp|g' \
+  -e 's|uploads/HTC_Heritage%20Library_Nature%20by%20Merian%2003Element%202\.png|assets/merian-6.webp|g' \
   -e 's|100vh|100dvh|g' \
-  -e '/if (n > 5 \&\& !s.unlocked) n = 5;/d' \
   -e 's|</body>|<script src="mecanica.js"></script>\n</body>|' \
   "$ORIGEN" > "$DESTINO"
 
 echo "index.html generado."
 echo "  imágenes pesadas sin convertir: $(grep -c 'uploads/' "$DESTINO" || true)  (debe decir 0)"
-echo "  mecanica.js enganchada:         $(grep -c 'mecanica.js' "$DESTINO" || true)  (debe decir 1)"
-echo "  candado interno del runtime:    $(grep -c '!s.unlocked' "$DESTINO" || true)  (debe decir 0)"
+echo "  mecanica.js enganchada:         $(grep -c 'mecanica.js' "$DESTINO" || true)  (debe decir 2)"
+echo "  puente abrirPuerta:             $(grep -c 'window.abrirPuerta' "$DESTINO" || true)  (debe decir 1 o más)"
