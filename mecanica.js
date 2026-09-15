@@ -43,25 +43,6 @@
         { src: "assets/merian-4.webp", css: "bottom:-12vh;right:-8vw;width:36vw;max-width:560px;opacity:.85;transform:rotate(-14deg)" }
       ],
       velo: "radial-gradient(ellipse 95% 85% at 50% 45%, rgba(232,230,208,.9) 0%, rgba(232,230,208,.9) 45%, rgba(232,230,208,.15) 100%)"
-    },
-    {
-      // Vive en su propia página (Estacion 03.dc.html). Necesita
-      // assets/merian-5.webp y merian-6.webp convertidos desde los PNG.
-      estacion: 3,
-      clave: "MIRADA",
-      rotulo: "Estación 03",
-      titulo: 'Escriba la <em>clave</em>',
-      ayuda: "La palabra que encontró nos adentra en la selva.",
-      crema: "#EFE4D6",
-      tinta: "#2A2118",
-      cuerpo: "#3F3325",
-      acento: "#8A2B2E",
-      error: "#8A2B2E",
-      fondo: [
-        { src: "assets/merian-5.webp", css: "top:-9vh;left:-8vw;width:40vw;max-width:760px;opacity:.8;transform:rotate(-8deg)" },
-        { src: "assets/merian-6.webp", css: "bottom:-11vh;right:-7vw;width:38vw;max-width:620px;opacity:.8;transform:rotate(16deg)" }
-      ],
-      velo: "radial-gradient(ellipse 95% 85% at 50% 45%, rgba(239,228,214,.9) 0%, rgba(239,228,214,.9) 45%, rgba(239,228,214,.15) 100%)"
     }
   ];
 
@@ -294,6 +275,20 @@
 
   var saltosSeguidos = 0;
 
+  // Cada página tiene UNA puerta, y el diseño dice cuál con
+  // window.PUERTA_ACTUAL. Sin esto, index.html ofrecía la clave de la
+  // estación 03 en cuanto la 02 quedaba abierta en el teléfono.
+  function puertaDeEstaPagina() {
+    var n = window.PUERTA_ACTUAL;
+    for (var i = 0; i < PUERTAS.length; i++) {
+      if (PUERTAS[i].estacion === n) return PUERTAS[i];
+    }
+    for (var j = 0; j < PUERTAS.length; j++) {
+      if (!estaAbierta(PUERTAS[j].estacion)) return PUERTAS[j];
+    }
+    return null;
+  }
+
   function revisar() {
     if (Date.now() < bloqueadoHasta) return;
 
@@ -303,20 +298,15 @@
       return;
     }
 
-    var p = null;
-    for (var i = 0; i < PUERTAS.length; i++) {
-      if (!estaAbierta(PUERTAS[i].estacion)) { p = PUERTAS[i]; break; }
-    }
+    var puerta = puertaDeEstaPagina();
+    if (!puerta) { quitarPuerta(); return; }
+    var p = estaAbierta(puerta.estacion) ? null : puerta;
 
     // Ya la abrió antes: la cruza sin volver a pedir la palabra, en la
     // dirección en la que venía.
     if (!p) {
       quitarPuerta();
-      if (saltosSeguidos < 2) {
-        saltosSeguidos++;
-        var ya = PUERTAS[PUERTAS.length - 1];
-        cruzar(ya, ultimaDireccion);
-      }
+      if (saltosSeguidos < 2) { saltosSeguidos++; cruzar(puerta, ultimaDireccion); }
       return;
     }
 

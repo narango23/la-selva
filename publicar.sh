@@ -35,8 +35,6 @@ sed \
   -e 's|uploads/HTC_Heritage%20Library_Nature%20by%20Merian%2006Element%201\.png|assets/merian-1.webp|g' \
   -e 's|uploads/HTC_Heritage%20Library_Nature%20by%20Merian%2004Element%201\.png|assets/merian-3.webp|g' \
   -e 's|uploads/HTC_Heritage%20Library_Nature%20by%20Merian%2004Element%203\.png|assets/merian-4.webp|g' \
-  -e 's|uploads/HTC_Heritage%20Library_Nature%20by%20Merian%2003Element%201\.png|assets/merian-5.webp|g' \
-  -e 's|uploads/HTC_Heritage%20Library_Nature%20by%20Merian%2003Element%202\.png|assets/merian-6.webp|g' \
   -e 's|100vh|100dvh|g' \
   -e 's|</body>|<script src="mecanica.js"></script>\n</body>|' \
   "$ORIGEN" > "$DESTINO"

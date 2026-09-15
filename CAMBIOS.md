@@ -20,13 +20,14 @@ y pastillas de "estaciones descubiertas" al pie de cada una.
 `mecanica.js` cruzaba la puerta haciendo clic en la flecha "→". Esa
 flecha ya no existe, así que el salto se quedaba sin efecto.
 
-El diseño ahora expone un puente:
+El diseño ahora expone dos cosas:
 
-    window.abrirPuerta(2)   // abre MEDIO en index.html
-    window.abrirPuerta(3)   // abre la estación 03 en su página
+    window.PUERTA_ACTUAL   // qué puerta le toca a esta página
+    window.abrirPuerta(n)  // cruzarla, sin tocar el DOM del runtime
 
-`mecanica.js` lo usa si está disponible y, si no, cae a la flecha de
-siempre. No toca el DOM del runtime, igual que antes.
+`mecanica.js` las usa si están disponibles y, si no, cae a la flecha de
+siempre. `PUERTA_ACTUAL` es lo que evita que una página ofrezca la clave
+de otra estación cuando la suya ya quedó abierta en el teléfono.
 
 `publicar.sh`: se quitó el `sed` que borraba el candado interno
 (`if (n > 5 && !s.unlocked)`). Esa línea ya no está en el export, así
@@ -38,25 +39,11 @@ que el paso 3 quedaba sin efecto. Los otros tres pasos siguen igual.
     mecanica.js                             reemplaza el actual
     publicar.sh                             reemplaza el actual
     export/Estaciones 01-02 paginada.dc.html
-    export/Estacion 03.dc.html              nueva página, con su propia puerta
-
-## Pendiente antes de publicar la estación 03
-
-Faltan sus dos ilustraciones en webp. Desde los PNG originales:
-
-    ffmpeg -i "HTC_Heritage Library_Nature by Merian 03Element 1.png" \
-      -vf "scale=1400:-1:flags=lanczos" -c:v libwebp -pix_fmt yuva420p \
-      -quality 82 -compression_level 6 assets/merian-5.webp
-
-    ffmpeg -i "HTC_Heritage Library_Nature by Merian 03Element 2.png" \
-      -vf "scale=1400:-1:flags=lanczos" -c:v libwebp -pix_fmt yuva420p \
-      -quality 82 -compression_level 6 assets/merian-6.webp
-
-Después hay que correr publicar.sh sobre el export de la 03 (agregándole
-al script el mapeo de esos dos nombres) y subirla como `estacion-03.html`.
-La puerta 3 ya está declarada en `mecanica.js` con la clave MIRADA.
 
 ## Claves
 
     Estación 02 → SELVA
-    Estación 03 → MIRADA
+
+La estación 03 existe en Claude Design pero todavía no está en el sitio.
+Se agrega cuando su contenido esté listo: su puerta, su página y sus dos
+ilustraciones en webp entran en esa misma tanda.

@@ -210,6 +210,7 @@ class Component extends DCLogic {
   componentDidMount() {
     // Puente para la capa de mecánica del sitio publicado (mecanica.js):
     // abre una puerta sin tocar el DOM del runtime.
+    window.PUERTA_ACTUAL = 2;
     window.abrirPuerta = (n) => {
       if (n === 2) this.setState({ unlocked: true, view: 'st2' }, () => window.scrollTo(0, 0));
     };
