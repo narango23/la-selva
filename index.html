@@ -160,7 +160,7 @@
           <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #23281A; text-wrap: pretty;">Me gusta pensar que a la Selva no le ocurre esto. Siento que usted siempre tiene esa mirada liviana a través de la cual siempre entra más luz y es un torrente de aire fresco.</p>
           <p style="margin: 0; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.38; font-weight: 300; color: #23281A; text-wrap: pretty;">Le dejo esta canción de Neil Young <i>Such a woman</i>, que obviamente no falta en la playlist de Équo. Dice dos cosas que me gusta pensar cuando la oigo.</p>
           <p style="margin: 0; font-size: clamp(20px, 2.4vw, 28px); line-height: 1.5; font-weight: 300; font-style: italic; color: #3A4029; text-wrap: pretty;"><b style="">You are such a woman - Usted es tremenda mujer<br>No one else can kill me like you do - Nadie me mata como usted</b></p>
-          <a href="https://open.spotify.com/search/Neil%20Young%20Such%20a%20Woman" target="_blank" rel="noopener" style="display: inline-flex; align-self: center; align-items: center; gap: 12px; margin-top: 6px; padding: 12px 22px; border: 1px solid #55601F; border-radius: 999px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: #55601F; background: rgba(232,230,208,0.5); transition: background 180ms ease, color 180ms ease;" style-hover="background: #55601F; color: #E8E6D0;">
+          <a href="https://open.spotify.com/track/2yn0xjGWEf6esXWnod4eCl" target="_blank" rel="noopener" style="display: inline-flex; align-self: center; align-items: center; gap: 12px; margin-top: 6px; padding: 12px 22px; border: 1px solid #55601F; border-radius: 999px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: #55601F; background: rgba(232,230,208,0.5); transition: background 180ms ease, color 180ms ease;" style-hover="background: #55601F; color: #E8E6D0;">
             <span style="white-space: nowrap;">Escuchar Such a Woman — Neil Young</span>
             <span style="font-family: 'Cormorant Garamond', serif; font-size: 15px;">↗</span>
           </a>
@@ -168,7 +168,7 @@
 
         <div style="display: flex; flex-direction: column; align-items: center; gap: 22px; padding-top: 6px;">
           <p style="margin: 0; text-align: center; font-size: 17px; line-height: 1.65; color: #3A4029; text-wrap: pretty;">Escribe la palabra de la tarjeta para seguir explorando</p>
-          <a href="Estacion 03.dc.html" style="display: inline-flex; align-self: center; align-items: center; gap: 12px; padding: 14px 26px; border: 1px solid #55601F; border-radius: 999px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #55601F; background: rgba(232,230,208,0.5); transition: background 180ms ease, color 180ms ease;" style-hover="background: #55601F; color: #E8E6D0;">
+          <a href="estacion-03.html" style="display: inline-flex; align-self: center; align-items: center; gap: 12px; padding: 14px 26px; border: 1px solid #55601F; border-radius: 999px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #55601F; background: rgba(232,230,208,0.5); transition: background 180ms ease, color 180ms ease;" style-hover="background: #55601F; color: #E8E6D0;">
             <span style="white-space: nowrap;">Adéntrate en la selva</span>
             <span style="font-family: 'Cormorant Garamond', serif; font-size: 15px;">→</span>
           </a>
@@ -196,10 +196,20 @@ class Component extends DCLogic {
     // Puente para la capa de mecánica del sitio publicado (mecanica.js):
     // abre una puerta sin tocar el DOM del runtime.
     window.PUERTA_ACTUAL = 2;
-    window.abrirPuerta = (n) => {
-      if (n === 2) this.setState({ unlocked: true, view: 'st2' }, () => window.scrollTo(0, 0));
-    };
-    window.cerrarPuerta = () => this.setState({ view: 'story' });
+    window.abrirPuerta = (n) => { if (n === 2) this.abrir(); };
+    window.cerrarPuerta = () => this.setView('story');
+    // Puerta ya abierta en este teléfono: no volver a pedir la clave.
+    let ya = false;
+    try { ya = localStorage.getItem('selva-puerta-2') === '1'; } catch (e) {}
+    // Las huellas de otras estaciones entran directo con #medio / #selva.
+    const ancla = (window.location.hash || '').replace('#', '');
+    if (ya && ancla === 'medio') this.setState({ unlocked: true, view: 'st2' });
+    else if (ancla === 'selva') this.setState({ unlocked: ya, view: 'story' });
+    else if (ya) this.setState({ unlocked: true });
+  }
+  abrir() {
+    try { localStorage.setItem('selva-puerta-2', '1'); } catch (e) {}
+    this.setState({ unlocked: true, error: false, view: 'st2' }, () => window.scrollTo(0, 0));
   }
   setView(v) {
     this.setState({ view: v });
@@ -207,10 +217,8 @@ class Component extends DCLogic {
   }
   trySubmit() {
     const key = String(this.props.clave ?? 'SELVA').trim().toUpperCase();
-    if (this.state.code.trim() === key) {
-      this.setState({ unlocked: true, error: false, view: 'st2' });
-      window.scrollTo(0, 0);
-    } else this.setState({ error: true });
+    if (this.state.code.trim() === key) this.abrir();
+    else this.setState({ error: true });
   }
   renderVals() {
     const p = this.props;
@@ -278,6 +286,5 @@ class Component extends DCLogic {
   }
 }
 </script>
-<script src="mecanica.js"></script>
 </body>
 </html>

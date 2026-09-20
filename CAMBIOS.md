@@ -1,49 +1,73 @@
 # Cambios de esta tanda
 
-Generado desde Claude Design el 2026-09-15.
+## Qué es el sitio ahora
 
-## Qué cambió en el diseño
+Seis estaciones repartidas en cinco páginas:
 
-La pieza dejó de avanzar por páginas con flechas. Ahora es:
+    index.html         carátula → estación 01 → clave SELVA → MEDIO
+    estacion-03.html   clave MIRADA
+    estacion-04.html   clave NATURALEZA
+    estacion-05.html   clave SER
+    estacion-06.html   clave SENTIDO
 
-  carátula "La Selva" → estación 01 en scroll → puerta de la clave → MEDIO en scroll
+Cada estación es una sola columna con scroll. Al final de cada una hay un
+botón que lleva a la siguiente y la tira de "Tus huellas", que muestra
+solo las estaciones ya descubiertas.
 
-Los botones "Explora ahora" y "Sigue explorando" hacen la navegación.
-Ya no existen los botones ← → ni los puntos de progreso.
+## mecanica.js ya no existe
 
-Además: textos nuevos en las dos estaciones, canciones de Madredeus y
-Neil Young con su enlace, bloque Dónde/Cuándo con la dirección real,
-y pastillas de "estaciones descubiertas" al pie de cada una.
+Ese script existía porque la versión vieja no dibujaba el campo de la
+clave: la puerta la ponía él por encima. Ahora cada página trae su propia
+puerta, así que el script pintaba una segunda. Lo borré del repo.
 
-## Qué hubo que tocar en la mecánica
+Lo que sí hacía falta conservar era su memoria. Ahora cada página guarda
+su puerta al abrirse:
 
-`mecanica.js` cruzaba la puerta haciendo clic en la flecha "→". Esa
-flecha ya no existe, así que el salto se quedaba sin efecto.
+    localStorage['selva-puerta-3'] = '1'
 
-El diseño ahora expone dos cosas:
+y al cargar, si ya está marcada, entra directo sin pedir la clave. Así
+volver desde la 06 a la 03 no vuelve a pedir MIRADA.
 
-    window.PUERTA_ACTUAL   // qué puerta le toca a esta página
-    window.abrirPuerta(n)  // cruzarla, sin tocar el DOM del runtime
+Para MEDIO, que vive dentro de index.html, las huellas usan anclas:
 
-`mecanica.js` las usa si están disponibles y, si no, cae a la flecha de
-siempre. `PUERTA_ACTUAL` es lo que evita que una página ofrezca la clave
-de otra estación cuando la suya ya quedó abierta en el teléfono.
+    index.html#selva   entra en la estación 01
+    index.html#medio   entra en MEDIO (si ya se abrió esa puerta)
 
-`publicar.sh`: se quitó el `sed` que borraba el candado interno
-(`if (n > 5 && !s.unlocked)`). Esa línea ya no está en el export, así
-que el paso 3 quedaba sin efecto. Los otros tres pasos siguen igual.
+## Imágenes
 
-## Archivos de esta carpeta
+Las ilustraciones nuevas ya están convertidas en assets/:
 
-    index.html                              ya pasado por publicar.sh — reemplaza el actual
-    mecanica.js                             reemplaza el actual
-    publicar.sh                             reemplaza el actual
-    export/Estaciones 01-02 paginada.dc.html
+    merian-5, merian-6     estación 03
+    merian-7, merian-8     estación 04
+    merian-9, merian-10    estación 05
+    merian-11, merian-12   estación 06
+    cuadro-rothko          el cuadro dentro de la estación 03
+
+Vienen de PNG de 12-14 MB cada uno; quedaron en webp de 1400 px y
+440-650 KB. merian-1 a merian-4 son las que ya estaban.
+
+## Qué subir
+
+Todo el contenido de esta carpeta a la raíz del repo. Borrar del repo el
+mecanica.js que quedó de la tanda anterior.
 
 ## Claves
 
-    Estación 02 → SELVA
+    02 → SELVA
+    03 → MIRADA
+    04 → NATURALEZA
+    05 → SER
+    06 → SENTIDO
 
-La estación 03 existe en Claude Design pero todavía no está en el sitio.
-Se agrega cuando su contenido esté listo: su puerta, su página y sus dos
-ilustraciones en webp entran en esa misma tanda.
+Se validan en el navegador: son un candado narrativo, no seguridad.
+
+## Canciones
+
+Cada estación enlaza a su track en Spotify:
+
+    01  Guitarra — Madredeus
+    02  Such a Woman (Live) — Neil Young
+    03  Perfect Day — Lou Reed
+    04  Harvest Moon — Neil Young
+    05  Contigo — Fito Páez (con Joaquín Sabina)
+    06  Feels Like Rain — John Hiatt
